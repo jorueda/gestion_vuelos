@@ -5,8 +5,12 @@ app = Flask(__name__)
 app.secret_key = "Llavesecreta"
 
 @app.route('/')#,methods=["GET", "POST"])
-def index():
-	return render_template('index.html', titulo="Sky Planner")
+def login():
+	return render_template('login.html', titulo="Sky Planner")
+
+@app.route('/registro/')#,methods=["GET", "POST"])
+def registro():
+	return render_template('registro.html', titulo="Sky Planner")
 
 @app.route('/viajes/')
 def viajes():
@@ -23,7 +27,7 @@ def admin():
 @app.route('/editar/', )
 def editar_vuelo():
 	return render_template('editar.html', titulo="Editar Vuelo")
-
+	
 @app.route('/editado/', methods=['GET', 'POST'])
 def vuelo_editado():
 	if request.method == 'POST':

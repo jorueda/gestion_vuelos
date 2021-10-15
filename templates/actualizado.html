@@ -1,0 +1,22 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+   {{ titulo }}
+{% endblock %}
+
+{% block content %}
+   
+    <h4> {{ titulo }} la chingada </h4>
+
+    <div>
+        Vuelo {{ id_vuelo }} ha sido {{ mensaje}}.
+        <br>
+        {{ nombre }}
+        {{ apellido}}
+        <br>
+        {{ ciudad_origen }}
+        {{ ciudad_destino }}
+    </div>
+
+
+{% endblock %}

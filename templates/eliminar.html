@@ -1,0 +1,22 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+   {{ titulo }}
+{% endblock %}
+
+{% block content %}
+   
+   <h4> {{ titulo }} la chingada </h4>
+
+   <div>
+      <form action="/eliminado/" method="post">
+          <div>
+              <input type="number" name="id_vuelo" placeholder="Id vuelo a eliminar" value="">
+          </div>
+          <div>
+              <button>Eliminar</button>
+          </div>
+      </form>
+  </div>
+
+{% endblock %}

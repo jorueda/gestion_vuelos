@@ -6,19 +6,17 @@
 
 {% block content %}
    
-   <h4> {{ titulo }} </h4>
+   <h4> Agregar Vuelo </h4>
 
    <div>
-      <form action="/editado/" method="post">
+      <form action="/agregado/" method="post">
           <div>
               <input type="number" name="id_vuelo" placeholder="Id Vuelo" value="">
-              <input type="text" name="nombre" placeholder="Nombre pasajero" value="">
-              <input type="text" name="apellido" placeholder="Apellido pasajero" value="">
               <input type="text" name="ciudad_origen" placeholder="Ciudad origen" value="">
               <input type="text" name="ciudad_destino" placeholder="Ciudad destino" value="">
           </div>
           <div>
-              <button>Actualizar</button>
+              <button>Agregar</button>
           </div>
       </form>
   </div>

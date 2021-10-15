@@ -5,7 +5,11 @@
 {% endblock %}
 
 {% block content %}
+   <h2>ADMIN</h2>
    
-   <h4> admin la chingada </h4>
-
+   <a href="{{url_for('agregar_vuelo')}}">Agregar vuelo</a>
+   <p> </p>
+   <a href="{{url_for('editar_vuelo')}}">Editar vuelo</a>
+   <p> </p>
+   <a href="{{url_for('eliminar_vuelo')}}">Eliminar vuelo</a>
 {% endblock %}

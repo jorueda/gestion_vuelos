@@ -8,21 +8,35 @@ app.secret_key = "Llavesecreta"
 def login():
 	return render_template('login.html', titulo="Sky Planner")
 
-@app.route('/registro/')#,methods=["GET", "POST"])
+@app.route('/registro/',methods=["GET", "POST"])
 def registro():
 	return render_template('registro.html', titulo="Sky Planner")
 
-@app.route('/viajes/')
+@app.route('/viajes/',methods=["GET", "POST"])
 def viajes():
 	return render_template('viajes.html', titulo="Sky Planner")
 
-@app.route('/experiencias/')
+@app.route('/experiencias/',methods=["GET", "POST"])
 def experiencias():
 	return render_template('experiencias.html', titulo="Sky Planner")
 
-@app.route('/admin/')
+@app.route('/admin/',methods=["GET", "POST"])
 def admin():
 	return render_template('admin.html', titulo="Sky Planner")
+
+@app.route('/agregar/',methods=["GET", "POST"])
+def agregar_vuelo():
+	return render_template('agregar.html', titulo="Agregar Vuelo")
+
+@app.route('/agregado/', methods=['GET', 'POST'])
+def vuelo_agregado():
+	if request.method == 'POST':
+		id_vuelo = request.form['id_vuelo']
+		ciudad_origen = request.form['ciudad_origen']
+		ciudad_destino = request.form['ciudad_destino']
+		mensaje = "agregado"
+		return render_template('agregado.html', titulo="Agregar Vuelo", id_vuelo=id_vuelo, 
+			ciudad_origen=ciudad_origen, ciudad_destino=ciudad_destino, mensaje=mensaje)
 
 @app.route('/editar/', )
 def editar_vuelo():

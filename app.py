@@ -4,6 +4,7 @@
 from flask import Flask
 from flask import render_template, request, flash, session, make_response, redirect, url_for
 from db import get_db
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 app.secret_key = "Llavesecreta"
@@ -23,6 +24,7 @@ def registro():
 		telefono = request.form['telefono']
 		direccion = request.form['direccion']
 		password = request.form['password']
+		password = generate_password_hash(password)
 		db = get_db()
 		cur = db.cursor()
 		cur.executescript("INSERT INTO usuario (cedula_usuario, nombre, apellido, edad, telefono, direccion, password) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s')" % (cedula, nombre, apellido, edad, telefono, direccion, password,))

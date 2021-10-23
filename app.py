@@ -1,5 +1,9 @@
+# $env:FLASK_APP="app.py" en PowerShell
+# $env:FLASK_ENV="development" en PowerShell
+
 from flask import Flask
-from flask import render_template, request
+from flask import render_template, request, flash, session, make_response, redirect, url_for
+from db import get_db
 
 app = Flask(__name__)
 app.secret_key = "Llavesecreta"
@@ -8,8 +12,23 @@ app.secret_key = "Llavesecreta"
 def login():
 	return render_template('login.html', titulo="Sky Planner")
 
+
 @app.route('/registro/',methods=["GET", "POST"])
 def registro():
+	if request.method == 'POST':
+		cedula = request.form['cedula']
+		nombre= request.form['nombre']
+		apellido = request.form['apellido']
+		edad = request.form['edad']
+		telefono = request.form['telefono']
+		direccion = request.form['direccion']
+		password = request.form['password']
+		db = get_db()
+		cur = db.cursor()
+		cur.executescript("INSERT INTO usuario (cedula_usuario, nombre, apellido, edad, telefono, direccion, password) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s')" % (cedula, nombre, apellido, edad, telefono, direccion, password,))
+		db.commit()
+		flash('Usuario creado en la BD')
+		return render_template('login.html', titulo="Sky Planner")
 	return render_template('registro.html', titulo="Sky Planner")
 
 @app.route('/viajes/',methods=["GET", "POST"])

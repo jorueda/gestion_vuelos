@@ -6,16 +6,18 @@
 
 {% block content %}
    
-   <form action="" method="GET">
+   <form action="/registro/" method="POST">
         <div class="login">
             <a href="{{url_for('login')}}">¿Ya tienes usuario? Inicia sesion</a>
             <h2>REGISTRO</h2>
-            <input type="text" class="txt-username" name="txt-name" id="txt-name" placeholder="Nombre y Apellido">
-            <input type="text" class="txt-username" name="txt-identification" id="txt-identification" placeholder="Cedula">
-            <input type="text" class="txt-username" name="txt-username" id="txt-username" placeholder="Usuario">
-            <input type="password" class="txt-contraseña" name="txt-contraseña" id="txt-contraseña" placeholder="Contraseña">
+            <input type="text" class="txt-username" name="nombre" id="txt-name" placeholder="Nombre">
+            <input type="text" class="txt-username" name="apellido" id="txt-name" placeholder="Apellido">
+            <input type="text" class="txt-username" name="cedula" id="txt-identification" placeholder="Cedula">
+            <input type="text" class="txt-username" name="edad" id="txt-username" placeholder="Edad">
+            <input type="text" class="txt-username" name="telefono" id="txt-username" placeholder="Teléfono">
+            <input type="text" class="txt-username" name="direccion" id="txt-name" placeholder="Dirección">
+            <input type="password" class="txt-contraseña" name="password" id="txt-contraseña" placeholder="Contraseña">
             <input type="submit" class="btn-login" id="btn-login" name="btn-login" value="Registro">
-            <input type="radio" name="terminos" value="1">Acepto terminos y condiciones<br>
         </div>
     </form>
 

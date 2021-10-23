@@ -9,9 +9,46 @@ from werkzeug.security import generate_password_hash, check_password_hash
 app = Flask(__name__)
 app.secret_key = "Llavesecreta"
 
-@app.route('/')#,methods=["GET", "POST"])
+@app.route('/', methods=["GET", "POST"])
 def login():
-	return render_template('login.html', titulo="Sky Planner")
+	try:
+		if request.method == 'POST':
+			db = get_db()
+			error = None
+			cedula = request.form['cedula']
+			password = request.form['password']
+
+			if not cedula:
+				error = 'Debes ingresar la cédula'
+				flash(error)
+				return render_template( 'login.html' )
+
+			if not password:
+				error = 'Debes ingresar la contraseña'
+				flash(error)
+				return render_template( 'login.html' )
+			
+			cursor = db.execute('SELECT * FROM usuario WHERE cedula_usuario = ?', (cedula,)).fetchone()
+			print(cursor[0])
+			print(cursor[6])
+
+			if cursor is None:
+				error = 'Usuario no válido'
+			else:
+				if check_password_hash(cursor[6], password):
+					session.clear() # Limpiar la sesión anterior
+					session['user_id'] = cursor[0]
+					resp = make_response(redirect(url_for ('admin')))
+					resp.set_cookie('cedula', cedula)
+					return resp
+					
+				else:
+					error = 'Contraseña no válida'
+				
+			flash(error)
+		return render_template('login.html', titulo="Sky Planner")
+	except:
+		return render_template('login.html', titulo="Sky Planner")
 
 
 @app.route('/registro/',methods=["GET", "POST"])

@@ -73,6 +73,46 @@ def registro():
 def viajes():
 	return render_template('viajes.html', titulo="Sky Planner")
 
+@app.route('/viajesbuscados/', methods=['GET', 'POST'])
+def viajes_buscados():
+	try:
+		if request.method == 'POST':
+			error = None
+			ciudad_origen = request.form['ciudad_origen']
+			ciudad_destino = request.form['ciudad_destino']
+
+			if not ciudad_origen:
+				error = 'Debes ingresar la ciudad de origen'
+				flash(error)
+				return render_template('viajes.html', titulo="Sky Planner")
+
+			if not ciudad_destino:
+				error = 'Debes ingresar la ciudad de destino'
+				flash(error)
+				return render_template('viajes.html', titulo="Sky Planner")
+			
+			db = get_db()
+			cursor = db.execute('SELECT * FROM vuelo WHERE origen = ?', (ciudad_origen,)).fetchall()
+
+			if(len(cursor) == 0):
+				error = 'Ciudad origen no encontrada'
+				flash(error)
+				return render_template('viajes.html', titulo="Sky Planner")
+			else:
+				cursor = db.execute('SELECT * FROM vuelo WHERE destino = ?', (ciudad_destino,)).fetchall()
+
+				if(len(cursor) == 0):
+					error = 'Ciudad destino no encontrada'
+					flash(error)
+					return render_template('viajes.html', titulo="Sky Planner")
+				else:
+					mensaje = "Vuelo disponible"
+					return render_template('viajesbuscados.html', titulo="Viajes", 
+					ciudad_origen=ciudad_origen, ciudad_destino=ciudad_destino, mensaje=mensaje)
+	except:
+		flash('Error al buscar vuelos')
+		return render_template('viajes.html', titulo="Sky Planner")
+
 @app.route('/experiencias/',methods=["GET", "POST"])
 def experiencias():
 	return render_template('experiencias.html', titulo="Sky Planner")
